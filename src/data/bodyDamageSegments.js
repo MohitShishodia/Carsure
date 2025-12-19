@@ -1,0 +1,66 @@
+export const bodyDamageSegments = {
+  'front-segment': {
+    name: 'Front',
+    position: { top: '0%', left: '38%', width: '28%', height: '41%' },
+    parts: [
+      { name: 'Front Bumper' },
+      { name: 'Bonnet' },
+      { name: 'Front Mamber' },
+      { name: 'Lower Mamber' },
+      { name: 'Front Windshield glass' },
+      { name: 'Bumper grill' },
+    ],
+  },
+  'front-right-segment': {
+    name: 'Front Right',
+    position: { top: '8%', left: '5%', width: '33%', height: '80%' },
+    parts: [
+      { name: 'Front Right Fender' },
+      { name: 'RHS headlamp' },
+      { name: 'RHS ORVM' },
+      { name: 'Running board' },
+      { name: 'Front door' },
+      { name: 'Rear door' },
+      { name: 'Quarter panel' },
+      { name: 'A Pillar' },
+      { name: 'B Pillar' },
+      { name: 'C Pillar' },
+    ],
+  },
+  'rear-segment': {
+    name: 'Rear',
+    position: { top: '66%', left: '39%', width: '25%', height: '32%' },
+    parts: [
+      { name: 'Rear bumper' },
+      { name: 'Rear windshield' },
+      { name: 'RHS Tail lamp' },
+      { name: 'LHS Tail lamp' },
+      { name: 'Boot lid' },
+    ],
+  },
+  'front-left-segment': {
+    name: 'Front Left',
+    position: { top: '8%', left: '65%', width: '33%', height: '80%' },
+    parts: [
+      { name: 'Front Left Fender' },
+      { name: 'LHS headlamp' },
+      { name: 'LHS ORVM' },
+      { name: 'Running board LHS' },
+      { name: 'Front door LHS' },
+      { name: 'Rear door LHS' },
+      { name: 'Quarter panel LHS' },
+      { name: 'A Pillar LHS' },
+      { name: 'B Pillar LHS' },
+      { name: 'C Pillar LHS' },
+    ],
+  },
+  'others-segment': {
+    name: 'Others (Roof/Center)',
+    position: { top: '41%', left: '38%', width: '27%', height: '25%' },
+    parts: [
+      { name: 'Roof' },
+      { name: 'Sunroof' },
+      { name: 'Roof rails' },
+    ],
+  },
+};
