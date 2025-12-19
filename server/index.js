@@ -47,12 +47,15 @@ app.post('/api/generate-pdf', async (req, res) => {
   try {
     console.log('Launching Puppeteer...');
     browser = await puppeteer.launch({
-      headless: true,
+      headless: 'new',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu',
+        '--disable-software-rasterizer',
+        '--disable-extensions',
+        '--single-process',
       ],
     });
 
