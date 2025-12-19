@@ -211,7 +211,7 @@ function App() {
       `;
 
       // Send to Puppeteer backend (use network IP for mobile access on same WiFi)
-      const response = await fetch('http://192.168.1.13:3002/api/generate-pdf', {
+      const response = await fetch('https://carsure.onrender.com/api/generate-pdf', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

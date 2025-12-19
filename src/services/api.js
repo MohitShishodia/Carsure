@@ -1,5 +1,5 @@
 // API service for communicating with the backend
-const API_BASE_URL = 'http://192.168.1.13:3002/api';
+const API_BASE_URL = 'https://carsure.onrender.com/api';
 
 // Evaluation CRUD operations
 export const evaluationsApi = {
