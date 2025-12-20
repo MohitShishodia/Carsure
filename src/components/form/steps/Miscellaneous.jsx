@@ -24,8 +24,8 @@ export default function Miscellaneous() {
     ]},
     { label: '8. Differential & Crown', id: 'diff_crown', options: STATUS_OPTIONS.proper },
     { label: '9. Diff Units/Pinion RWD', id: 'diff_pinion', options: STATUS_OPTIONS.proper },
-    { label: '10. Crown Wheel/Pinion', id: 'crown_pinion', options: STATUS_OPTIONS.proper },
-    { label: '11. Cross Wheel/Pinion', id: 'cross_pinion', options: STATUS_OPTIONS.proper },
+    { label: '10. Crown Wheel/Pinion RWD', id: 'crown_pinion', options: STATUS_OPTIONS.proper },
+    { label: '11. Cross Wheel/Pinion RWD', id: 'cross_pinion', options: STATUS_OPTIONS.proper },
     { label: '12. Flood Symptoms', id: 'flood_symptoms', options: FLOOD_OPTIONS },
     { label: '13. Gear Box', id: 'misc_gear_box', options: [
       { value: 'Proper', label: 'Proper' },

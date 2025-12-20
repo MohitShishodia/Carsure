@@ -47,7 +47,11 @@ export default function Electricals() {
       { value: 'Work Needed', label: 'Work Needed' },
       { value: 'N/A', label: 'N/A' },
     ]},
-    { label: 'CNG Fitting', id: 'chg_fitting', options: STATUS_OPTIONS.available },
+    { label: 'CNG Fitting', id: 'chg_fitting', options: [
+      { value: 'Not Available', label: 'Not Available' },
+      { value: 'Company Fitted Available', label: 'Company Fitted Available' },
+      { value: 'Outside Fitted Available', label: 'Outside Fitted Available' },
+    ]},
     { label: 'Speedometer', id: 'speedometer', options: [
       { value: 'Working', label: 'Working' },
       { value: 'Not Working', label: 'Not Working' },

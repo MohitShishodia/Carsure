@@ -25,7 +25,7 @@ const initialFormData = {
   insu_valid: '',
   hypothecation: 'No',
   hypothecation_remark: '',
-  hypothecation_valid_upto: '',
+  hypothecation_by: '',
   engine_number: '',
   chassis_number: '',
   

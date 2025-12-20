@@ -134,9 +134,9 @@ export default function VehicleDetails() {
         <Input
           label="Insurance Valid Upto"
           id="insu_valid"
+          type="date"
           value={formData.insu_valid}
           onChange={(value) => updateField('insu_valid', value)}
-          placeholder="Enter validity date"
         />
       </div>
 
@@ -154,11 +154,11 @@ export default function VehicleDetails() {
           {formData.hypothecation === 'Yes' && (
             <>
               <Input
-                label="Hypothecation Valid Upto"
-                id="hypothecation_valid_upto"
-                type="date"
-                value={formData.hypothecation_valid_upto}
-                onChange={(value) => updateField('hypothecation_valid_upto', value)}
+                label="Hypothecation By"
+                id="hypothecation_by"
+                value={formData.hypothecation_by}
+                onChange={(value) => updateField('hypothecation_by', value)}
+                placeholder="Enter bank/financier name"
               />
               <Textarea
                 label="Hypothecation Remark"

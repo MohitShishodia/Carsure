@@ -12,7 +12,11 @@ export default function CarExterior() {
     { label: 'Car Body', id: 'car_body', options: STATUS_OPTIONS.carBody },
     { label: 'Turn Indicators', id: 'turn_indicator', options: STATUS_OPTIONS.working },
     { label: 'Tail Lights', id: 'tail_light', options: STATUS_OPTIONS.working },
-    { label: 'Rear View Mirrors', id: 'mirror', options: [{ value: 'Working', label: 'Working' }] },
+    { label: 'Rear View Mirrors', id: 'mirror', options: [
+      { value: 'Working', label: 'Working' },
+      { value: 'Not Working', label: 'Not Working' },
+      { value: 'Damaged', label: 'Damaged' },
+    ]},
   ];
 
   return (
