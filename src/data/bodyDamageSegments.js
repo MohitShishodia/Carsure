@@ -13,7 +13,7 @@ export const bodyDamageSegments = {
   },
   'front-right-segment': {
     name: 'Front Right',
-    position: { top: '8%', left: '5%', width: '33%', height: '80%' },
+    position: { top: '8%', left: '65%', width: '33%', height: '80%' },
     parts: [
       { name: 'Front Right Fender' },
       { name: 'RHS headlamp' },
@@ -40,7 +40,7 @@ export const bodyDamageSegments = {
   },
   'front-left-segment': {
     name: 'Front Left',
-    position: { top: '8%', left: '65%', width: '33%', height: '80%' },
+    position: { top: '8%', left: '5%', width: '33%', height: '80%' },
     parts: [
       { name: 'Front Left Fender' },
       { name: 'LHS headlamp' },
