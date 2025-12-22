@@ -484,28 +484,85 @@ export default function Report({ onGeneratePdf, onReset, onBack }) {
 
       {/* Overall Rating */}
       <SectionHeader title="Overall Rating Summary" />
-      <div className="no-page-break p-4 rounded-lg mb-4" style={{ backgroundColor: overall >= 4 ? '#e8f5e9' : overall >= 3 ? '#fff3e0' : '#ffebee' }}>
-        <div className="flex flex-wrap gap-2 mb-4">
+      <div 
+        className="no-page-break" 
+        style={{ 
+          backgroundColor: overall >= 4 ? '#e8f5e9' : overall >= 3 ? '#fff3e0' : '#ffebee',
+          padding: '20px',
+          borderRadius: '12px',
+          marginBottom: '16px'
+        }}
+      >
+        {/* Rating Circles Grid */}
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap', 
+          gap: '10px', 
+          marginBottom: '20px',
+          justifyContent: 'center'
+        }}>
           {sections.map((section) => (
             <div 
               key={section.name}
-              className="rating-circle text-center p-2 rounded-lg border-2"
               style={{
+                border: '3px solid',
                 borderColor: section.score >= 4 ? '#4caf50' : section.score >= 3 ? '#ff9800' : '#f44336',
                 backgroundColor: 'white',
-                minWidth: '80px'
+                borderRadius: '12px',
+                padding: '12px 8px',
+                minWidth: '85px',
+                textAlign: 'center',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
               }}
             >
-              <span className="text-lg font-bold">{section.score.toFixed(1)}</span>
-              <span className="text-xs block">{section.name}</span>
+              <div style={{ 
+                fontSize: '22px', 
+                fontWeight: 'bold', 
+                color: section.score >= 4 ? '#4caf50' : section.score >= 3 ? '#ff9800' : '#f44336'
+              }}>
+                {section.score.toFixed(1)}
+              </div>
+              <div style={{ 
+                fontSize: '11px', 
+                fontWeight: '600',
+                color: '#555',
+                textTransform: 'uppercase',
+                marginTop: '4px'
+              }}>
+                {section.name}
+              </div>
             </div>
           ))}
         </div>
-        <div className="text-right">
-          <div className="text-4xl font-bold" style={{ color: overall >= 4 ? '#4caf50' : overall >= 3 ? '#ff9800' : '#f44336' }}>
+        
+        {/* Overall Score Box */}
+        <div style={{ 
+          textAlign: 'center',
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          padding: '20px',
+          border: '3px solid',
+          borderColor: overall >= 4 ? '#4caf50' : overall >= 3 ? '#ff9800' : '#f44336',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+        }}>
+          <div style={{ 
+            fontSize: '48px', 
+            fontWeight: 'bold', 
+            color: overall >= 4 ? '#4caf50' : overall >= 3 ? '#ff9800' : '#f44336',
+            lineHeight: '1'
+          }}>
             {overall.toFixed(1)}/5
           </div>
-          <div className="text-lg font-medium">{getConditionText(overall)} CONDITION</div>
+          <div style={{ 
+            fontSize: '18px', 
+            fontWeight: '600',
+            color: overall >= 4 ? '#2e7d32' : overall >= 3 ? '#e65100' : '#c62828',
+            marginTop: '8px',
+            textTransform: 'uppercase',
+            letterSpacing: '1px'
+          }}>
+            {getConditionText(overall)} CONDITION
+          </div>
         </div>
       </div>
 
