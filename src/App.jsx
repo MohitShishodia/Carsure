@@ -127,6 +127,8 @@ function App() {
 
   const handleGeneratePdf = async () => {
     setIsGeneratingPdf(true);
+    const API_URL = 'https://carsure.onrender.com';
+    const MAX_RETRIES = 3;
     
     try {
       const content = document.getElementById('report-content');
@@ -210,22 +212,69 @@ function App() {
         </html>
       `;
 
-      // Send to Puppeteer backend (use network IP for mobile access on same WiFi)
-      const response = await fetch('https://carsure.onrender.com/api/generate-pdf', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          htmlContent,
-          filename: 'Carsure360_Vehicle_Report.pdf'
-        }),
-      });
+      // Helper function to attempt PDF generation with retry
+      const attemptPdfGeneration = async (retryCount = 0) => {
+        try {
+          // First, wake up the server if it might be sleeping (Render free tier sleeps after 15 min)
+          if (retryCount === 0) {
+            try {
+              console.log('Waking up server...');
+              await fetch(`${API_URL}/api/health`, { 
+                method: 'GET',
+                signal: AbortSignal.timeout(30000) // 30 second timeout for wake-up
+              });
+              console.log('Server is awake!');
+            } catch (wakeError) {
+              console.log('Server wake-up ping failed, will retry with main request...');
+            }
+          }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate PDF');
-      }
+          // Make the PDF generation request with timeout
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minute timeout
+
+          const response = await fetch(`${API_URL}/api/generate-pdf`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              htmlContent,
+              filename: 'Carsure360_Vehicle_Report.pdf'
+            }),
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            let errorMessage = 'Failed to generate PDF';
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.error || errorMessage;
+            } catch {}
+            throw new Error(errorMessage);
+          }
+
+          return response;
+        } catch (error) {
+          // Retry logic for network errors
+          if (retryCount < MAX_RETRIES - 1 && 
+              (error.name === 'AbortError' || 
+               error.message.includes('Failed to fetch') ||
+               error.message.includes('NetworkError') ||
+               error.message.includes('timeout'))) {
+            console.log(`Retry attempt ${retryCount + 1}/${MAX_RETRIES}...`);
+            // Wait before retrying (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, 2000 * (retryCount + 1)));
+            return attemptPdfGeneration(retryCount + 1);
+          }
+          throw error;
+        }
+      };
+
+      // Attempt PDF generation with retries
+      const response = await attemptPdfGeneration();
 
       // Download the PDF
       const arrayBuffer = await response.arrayBuffer();
@@ -254,7 +303,16 @@ function App() {
 
     } catch (error) {
       console.error('PDF generation error:', error);
-      alert('Error generating PDF: ' + error.message + '\n\nMake sure the Puppeteer server is running:\ncd server && npm start');
+      
+      // User-friendly error messages
+      let userMessage = 'Error generating PDF: ';
+      if (error.message.includes('Failed to fetch') || error.name === 'AbortError') {
+        userMessage += 'Server is temporarily unavailable. Please wait a moment and try again.\n\n(The server may be waking up from sleep mode)';
+      } else {
+        userMessage += error.message;
+      }
+      
+      alert(userMessage);
     } finally {
       setIsGeneratingPdf(false);
     }

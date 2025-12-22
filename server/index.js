@@ -289,5 +289,30 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`   Network: http://192.168.1.13:${PORT}`);
   console.log(`   Mode: ${IS_PRODUCTION ? 'PRODUCTION' : 'DEVELOPMENT'}`);
   console.log(`   ⚡ Optimized with browser pooling`);
+  
+  // Pre-warm browser on server start (after a delay)
+  setTimeout(async () => {
+    console.log('🔥 Pre-warming browser...');
+    try {
+      await getBrowser();
+      console.log('✅ Browser pre-warmed and ready!');
+    } catch (err) {
+      console.error('Failed to pre-warm browser:', err.message);
+    }
+  }, 3000);
+  
+  // Keep-alive ping to prevent Render free tier from sleeping
+  // Pings itself every 14 minutes (Render sleeps after 15 min of inactivity)
+  if (IS_PRODUCTION) {
+    const KEEP_ALIVE_URL = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+    setInterval(async () => {
+      try {
+        const response = await fetch(`${KEEP_ALIVE_URL}/api/health`);
+        const data = await response.json();
+        console.log(`🏓 Keep-alive ping: ${data.status} (browser: ${data.browserReady ? 'ready' : 'sleeping'})`);
+      } catch (err) {
+        console.log('Keep-alive ping failed:', err.message);
+      }
+    }, 14 * 60 * 1000); // 14 minutes
+  }
 });
-
